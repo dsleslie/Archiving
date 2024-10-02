@@ -17,9 +17,20 @@ df.set_index("종목코드", inplace=True)
 # df.sort_values(by='현재가')
 # print(df.sort_values(by='현재가'))
 # ascending=False : 내림차순 , = True 가 기본 값= 오름차순
-print(df.sort_values(by='현재가',ascending=False))
-print(df.sort_values(by='종목명',ascending=False))
+# print(df.sort_values(by='현재가',ascending=False))
+# print(df.sort_values(by='종목명',ascending=False))
 
-print(df.sort_index()) # 기본값
-print(df.sort_index(ascending=False)) # 역순
+# print(df.sort_index()) # 기본값
+# print(df.sort_index(ascending=False)) # 역순
 
+# 인덱스 연산: 집합 연산 개념이 들어가 있음. 이를 통해 데이터 병합할 때 사용
+idx1=pd.Index([1, 2, 3])
+idx2=pd.Index([2,3,4])
+
+print(idx1.union(idx2))
+# union  : 합집합 되는 것. 즉 위에 unino 하면 중복되는 2,3 은 겹치니까, 합집합 하면 1,2,3,4  인 것
+print(idx1.intersection(idx2))
+# intersection: 교집합
+
+print(idx1.difference(idx2))
+# 차집합
