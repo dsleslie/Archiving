@@ -62,9 +62,9 @@ df = DataFrame(data=data, columns=columns)
 # 요기까지가 분석해야할 테이블. 그걸 한번 본것. 나중에는 굉장히 데이터가 커짐
 
 # get_group : 테마로 그룹화한 것 안에서 쪼개
-print(df.groupby("테마").get_group("2차전지(생산)"))
-print(df.groupby("테마").get_group("시스템반도체"))
-print(df.groupby("테마").get_group("해운"))
+# print(df.groupby("테마").get_group("2차전지(생산)"))
+# print(df.groupby("테마").get_group("시스템반도체"))
+# print(df.groupby("테마").get_group("해운"))
 
 # 얘를 내보내야함. 그게 문제.
 # result = df.groupby("테마")[["PER","PBR"]].mean()
@@ -74,5 +74,22 @@ print(df.groupby("테마").get_group("해운"))
 
 # 오후 
 
+df = pd.read_excel("c:/Archiving/IMDGB/step02_ds_basic/dataset/ss_ex_1.xlsx" , parse_dates=['일자'], index_col=0)
+# print(df.head())
+# 이런 파일 가져오면, 연도/월/일로 쪼개서 관리할 수 있다.
+df = df.reset_index()
+#print(df.head(1))
+#print(df.info())
+# print(df['일자'].dt.quarter) # 분기 정보가 나온다
+# print(df['일자'].dt.year) # 연 정보가 나온다
+# print(df['일자'].dt.month) # 월 정보가 나온다
+# print(df['일자'].dt.day) # 일 정보가 나온다
+# 참고: https://pandas.pydata.org/docs/reference/api/pandas.DatetimeIndex.html
+# 연습할 것: https://pandas.pydata.org/docs/user_guide/timeseries.html
 
-
+# column 추가
+df['분기'] = df['일자'].dt.quarter
+df['연도'] = df['일자'].dt.year 
+df['월'] = df['일자'].dt.month
+df['일'] = df['일자'].dt.day
+print(df.head(3))
