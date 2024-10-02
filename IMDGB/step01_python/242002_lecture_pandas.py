@@ -50,4 +50,18 @@ data = [
 
 columns = ["테마", "종목명", "PER", "PBR"]
 df = DataFrame(data=data, columns=columns)
-print(df)
+#print(df)
+
+
+#result = df.groupby("테마")[["PER","PBR"]]
+#print(type(result))
+
+#result = df.groupby("테마")[["PER","PBR"]].mean()
+#print(result)
+#print(type(result))
+# 요기까지가 분석해야할 테이블. 그걸 한번 본것. 나중에는 굉장히 데이터가 커짐
+
+# get_group : 테마로 그룹화한 것 안에서 쪼개
+print(df.groupby("테마").get_group("2차전지(생산)"))
+print(df.groupby("테마").get_group("시스템반도체"))
+print(df.groupby("테마").get_group("해운"))
