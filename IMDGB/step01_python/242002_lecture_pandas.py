@@ -27,10 +27,27 @@ df.set_index("종목코드", inplace=True)
 idx1=pd.Index([1, 2, 3])
 idx2=pd.Index([2,3,4])
 
-print(idx1.union(idx2))
+#print(idx1.union(idx2))
 # union  : 합집합 되는 것. 즉 위에 unino 하면 중복되는 2,3 은 겹치니까, 합집합 하면 1,2,3,4  인 것
-print(idx1.intersection(idx2))
+#print(idx1.intersection(idx2))
 # intersection: 교집합
 
-print(idx1.difference(idx2))
+#print(idx1.difference(idx2))
 # 차집합
+
+
+# groupby 연산
+from pandas import DataFrame
+
+data = [
+    ["2차전지(생산)", "SK이노베이션", 10.19, 1.29],
+    ["해운", "팬오션", 21.23, 0.95],
+    ["시스템반도체", "티엘아이", 35.97, 1.12],
+    ["해운", "HMM", 21.52, 3.20],
+    ["시스템반도체", "아이에이", 37.32, 3.55],
+    ["2차전지(생산)", "LG화학", 83.06, 3.75]
+]
+
+columns = ["테마", "종목명", "PER", "PBR"]
+df = DataFrame(data=data, columns=columns)
+print(df)
