@@ -65,3 +65,14 @@ df = DataFrame(data=data, columns=columns)
 print(df.groupby("테마").get_group("2차전지(생산)"))
 print(df.groupby("테마").get_group("시스템반도체"))
 print(df.groupby("테마").get_group("해운"))
+
+# 얘를 내보내야함. 그게 문제.
+# result = df.groupby("테마")[["PER","PBR"]].mean()
+# result.to_csv("c:/Archiving/IMDGB/20241004/output/result_csv_240930.xlsx")
+# 오 된다. 왜 그래프는 안되지
+
+
+# 오후 
+
+
+
