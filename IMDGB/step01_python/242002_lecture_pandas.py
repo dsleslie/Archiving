@@ -114,4 +114,3 @@ print(result)
 print(result.reset_index()) # 리셋 인덱스 해야 처리하기 쉬움. ..아님 각 컬럼을 만드는게 나음. 
 
 
-
