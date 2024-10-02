@@ -92,4 +92,26 @@ df['분기'] = df['일자'].dt.quarter
 df['연도'] = df['일자'].dt.year 
 df['월'] = df['일자'].dt.month
 df['일'] = df['일자'].dt.day
-print(df.head(3))
+#print(df.head(3))
+
+# 묶기
+# result = df.groupby(['연도', '월']).get_group((2021, 2))
+# print(result.head())
+#result = df.groupby(['연도','월'])['시가'].mean()
+# print(result)
+
+# 각 월별 종가, 저가, 고가 알고 싶은거
+# 이떈 딕셔너리가 필요함
+multiples = {
+   "시가" : "first",
+   "저가" : min,
+   "고가" : max,
+   "종가" : 'last' 
+}
+result = df.groupby(['연도','월']).agg(multiples)
+print(result)
+# group by 어렵..
+print(result.reset_index()) # 리셋 인덱스 해야 처리하기 쉬움. ..아님 각 컬럼을 만드는게 나음. 
+
+
+
