@@ -33,29 +33,59 @@ df.to_excel("output/data2.xlsx")
 # concat 이라는 함수
 
 # 첫번째 데이터프레임
-data = {
-    '종가': [113000, 111500],
-    '거래량': [555850, 282163]
-}
-index = ["2019-06-21", "2019-06-20"]
-df1 = DataFrame(data, index=index)
-print(df1)
+# data = {
+#    '종가': [113000, 111500],
+#    '거래량': [555850, 282163]
+#}
+#index = ["2019-06-21", "2019-06-20"]
+#df1 = DataFrame(data, index=index)
+#print(df1)
 
 # 두번째 데이터프레임
-data2 = {
-    '종가': [110000, 483689],
-    '거래량': [109000, 791946]
-}
-index2 = ["2019-06-19", "2019-06-18"]
-df2 = DataFrame(data2, index=index2)
-print(df2)
+#data2 = {
+#    '종가': [110000, 483689],
+#    '거래량': [109000, 791946]
+#}
+#index2 = ["2019-06-19", "2019-06-18"]
+#df2 = DataFrame(data2, index=index2)
+#print(df2)
 
 # concat 써보자. dataframe 합치는 것.
 # concat: 두 개 컬럼을 그냥 이어주는 것, 그래서 concat안에 df 순서 바꾸면 result도 달라진다. 그냥 합지기만 하기 때문.
 # 컬럼수가 다른 두 데이터프레임을 합친다면? 매칭이 되는건 그냥 합쳐지고, 매칭 안되는 곳은 NaN으로 값 나옴. ㅇㅋ 
 # 인덱스 타입이 달라도 이어 붙여짐. 
 # 즉 그냥 합쳐지기만 하는 거임. 그래서 사전에 두 dataframe 인덱스 타입을 동일하게 합치는 게 좋음.
-result = pd.concat([df1,df2])
-print(result)
+#result = pd.concat([df1,df2])
+#print(result)
 
-result
+##
+# merge
+# 첫 번째 데이터프레임
+data = [
+    ["전기전자", "005930", "삼성전자", 74400],
+    ["화학", "051910", "LG화학", 896000],
+    ["전기전자", "000660", "SK하이닉스", 101500]
+]
+
+columns = ["업종", "종목코드", "종목명", "현재가"]
+df1 = DataFrame(data=data, columns=columns)
+
+# 두 번째 데이터프레임
+data = [
+    ["은행", 2.92],
+    ["보험", 0.37],
+    ["화학", 0.06],
+    ["전기전자", -2.43]
+]
+
+columns = ["업종", "등락률"]
+df2 = DataFrame(data=data, columns=columns)
+
+# merge 해보자
+print(pd.merge(left = df1, right = df2, on = '업종'))
+print(df1)
+print(df2)
+# merge 결과 해석
+# 두 데이터프레임에서 겹치지 않는 업종은 사라지고, 겹치는 거만 남으면서 컬럼은 붙여짐
+# sql에서는 join 건다고 함.
+
