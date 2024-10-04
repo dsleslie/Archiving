@@ -61,10 +61,39 @@ df.to_excel("output/data2.xlsx")
 ##
 # merge
 # 첫 번째 데이터프레임
+#data = [
+ #   ["전기전자", "005930", "삼성전자", 74400],
+  #  ["화학", "051910", "LG화학", 896000],
+   # ["전기전자", "000660", "SK하이닉스", 101500]
+#]
+
+#columns = ["업종", "종목코드", "종목명", "현재가"]
+#df1 = DataFrame(data=data, columns=columns)
+
+# 두 번째 데이터프레임
+#data = [
+ #   ["은행", 2.92],
+  #  ["보험", 0.37],
+# ["화학", 0.06],
+ #   ["전기전자", -2.43]
+#]
+
+#columns = ["업종", "등락률"]
+#df2 = DataFrame(data=data, columns=columns)
+
+# merge 해보자
+#print(pd.merge(left = df1, right = df2, on = '업종'))
+#print(df1)
+#print(df2)
+# merge 결과 해석
+# 두 데이터프레임에서 겹치지 않는 업종은 사라지고, 겹치는 거만 남으면서 컬럼은 붙여짐
+# sql에서는 join 건다고 함.
+
+### 
 data = [
     ["전기전자", "005930", "삼성전자", 74400],
     ["화학", "051910", "LG화학", 896000],
-    ["전기전자", "000660", "SK하이닉스", 101500]
+    ["카카오", "000660", "SK하이닉스", 101500]
 ]
 
 columns = ["업종", "종목코드", "종목명", "현재가"]
@@ -81,11 +110,25 @@ data = [
 columns = ["업종", "등락률"]
 df2 = DataFrame(data=data, columns=columns)
 
-# merge 해보자
-print(pd.merge(left = df1, right = df2, on = '업종'))
-print(df1)
-print(df2)
-# merge 결과 해석
-# 두 데이터프레임에서 겹치지 않는 업종은 사라지고, 겹치는 거만 남으면서 컬럼은 붙여짐
-# sql에서는 join 건다고 함.
+df= pd.merge(left = df1, right = df2, how = 'left', on='업종')
+print(df)
+# left join: 왼쪽 데이터 프레임은 그냥 가져오고, 
+# 오른쪽 데이터 프레임은 맞는 행 있으면 컬럼 그대로 갖다 붙이는데, 
+# 안맞는 값은 NaN 처리
+# how = 기본값은 'inner' 즉 inner join <- 양쪽 키값이 맻이 되는 거만 가져옴. 즉 left에서 Nan이었던 행은 안나온 것
 
+#inner
+df_inner= pd.merge(left = df1, right = df2,  on='업종')
+print(df_inner)
+
+#right
+df_right= pd.merge(left = df1, right = df2, how='right', on='업종')
+print(df_right)
+
+#outer
+df_outer= pd.merge(left = df1, right = df2, how = 'outer',  on='업종')
+print(df_outer)
+
+# join 걸 때 기억해야 할 것 = merge 사용 시기억할 것
+# inner, left 위주로 쓰면 됨.
+# 이유 : 기준테이블을 left 등으로 잡는 다는 뜻이니, 기준 테이블을 굳이 right로 잡을 필요는 없기 때문에...
