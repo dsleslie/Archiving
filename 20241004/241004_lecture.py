@@ -90,44 +90,44 @@ df.to_excel("output/data2.xlsx")
 # sql에서는 join 건다고 함.
 
 ### 
-data = [
-    ["전기전자", "005930", "삼성전자", 74400],
-    ["화학", "051910", "LG화학", 896000],
-    ["카카오", "000660", "SK하이닉스", 101500]
-]
+#data = [
+ #   ["전기전자", "005930", "삼성전자", 74400],
+ #   ["화학", "051910", "LG화학", 896000],
+ #   ["카카오", "000660", "SK하이닉스", 101500]
+#]
 
-columns = ["업종", "종목코드", "종목명", "현재가"]
-df1 = DataFrame(data=data, columns=columns)
+#columns = ["업종", "종목코드", "종목명", "현재가"]
+#df1 = DataFrame(data=data, columns=columns)
 
 # 두 번째 데이터프레임
-data = [
-    ["은행", 2.92],
-    ["보험", 0.37],
-    ["화학", 0.06],
-    ["전기전자", -2.43]
-]
+#data = [
+#    ["은행", 2.92],
+#    ["보험", 0.37],
+#    ["화학", 0.06],
+#    ["전기전자", -2.43]
+#]
 
-columns = ["업종", "등락률"]
-df2 = DataFrame(data=data, columns=columns)
+#columns = ["업종", "등락률"]
+#df2 = DataFrame(data=data, columns=columns)
 
-df= pd.merge(left = df1, right = df2, how = 'left', on='업종')
-print(df)
+#df= pd.merge(left = df1, right = df2, how = 'left', on='업종')
+#print(df)
 # left join: 왼쪽 데이터 프레임은 그냥 가져오고, 
 # 오른쪽 데이터 프레임은 맞는 행 있으면 컬럼 그대로 갖다 붙이는데, 
 # 안맞는 값은 NaN 처리
 # how = 기본값은 'inner' 즉 inner join <- 양쪽 키값이 맻이 되는 거만 가져옴. 즉 left에서 Nan이었던 행은 안나온 것
 
 #inner
-df_inner= pd.merge(left = df1, right = df2,  on='업종')
-print(df_inner)
+#df_inner= pd.merge(left = df1, right = df2,  on='업종')
+#print(df_inner)
 
 #right
-df_right= pd.merge(left = df1, right = df2, how='right', on='업종')
-print(df_right)
+#df_right= pd.merge(left = df1, right = df2, how='right', on='업종')
+#print(df_right)
 
 #outer
-df_outer= pd.merge(left = df1, right = df2, how = 'outer',  on='업종')
-print(df_outer)
+#df_outer= pd.merge(left = df1, right = df2, how = 'outer',  on='업종')
+#print(df_outer)
 
 # join 걸 때 기억해야 할 것 = merge 사용 시기억할 것
 # inner, left 위주로 쓰면 됨.
@@ -139,3 +139,37 @@ print(df_outer)
 # left on, right on 옵션을 준다. 아래 처럼
 # df= pd.merge(left = df1, right = df2, how = 'left', left_on='업종', right_on='항목')
 # 이러면 같은 키 값으로 인지한다.
+
+
+
+
+## join
+data = [
+    ["전기전자", "005930", "삼성전자", 74400],
+    ["화학", "051910", "LG화학", 896000],
+    ["카카오", "000660", "SK하이닉스", 101500]
+]
+
+columns = ["업종", "종목코드", "종목명", "현재가"]
+df1 = DataFrame(data=data, columns=columns)
+df1 = df1.set_index('업종')
+
+# 두 번째 데이터프레임
+data = [
+    ["은행", 2.92],
+    ["보험", 0.37],
+    ["화학", 0.06],
+    ["전기전자", -2.43]
+]
+
+columns = ["항목", "등락률"]
+df2 = DataFrame(data=data, columns=columns)
+df2 = df2.set_index('항목')
+
+# join 해보자
+print(df1.join(other=df2, how = 'left'))
+
+# 차이 설명.
+# merge = 기본값: inner join
+# join 기본값 : left join
+# join 하든, merge 쓰든 같은 구문이니, how = '방식' 쓰는게 좋다!
