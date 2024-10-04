@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 import yfinance as yf
 # pip install yfinance --upgrade --no-cache-dir <- 이거 bash terminal 에서 실행
 from pandas import DataFrame
-# import plotly
+import plotly
 
 #data = {
 #    "종목명": ["3R", "3SOFT", "ACTS"],
@@ -47,38 +47,45 @@ from pandas import DataFrame
 # plt.savefig('png_test1.png') 오 된다.
 # plt.savefig('output_test/png_test2.png') 오 된다.
 
-apple = yf.download("AAPL", start = "2020-01-01", end="2024-09-30")
-nvidia = yf.download("NVDA", start = "2020-01-01", end="2024-09-30")
-intel = yf.download("INTC", start="2020-01-01", end = "2024-09-30")
-amazon = yf.download("AMZN", start="2020-01-01", end = "2024-09-30")
+#apple = yf.download("AAPL", start = "2020-01-01", end="2024-09-30")
+#nvidia = yf.download("NVDA", start = "2020-01-01", end="2024-09-30")
+#intel = yf.download("INTC", start="2020-01-01", end = "2024-09-30")
+#amazon = yf.download("AMZN", start="2020-01-01", end = "2024-09-30")
 
-fig, ax = plt.subplots(nrows=2, ncols=2, figsize=(10,4))
+#fig, ax = plt.subplots(nrows=2, ncols=2, figsize=(10,4))
 # nrows, ncols로 그래프 몇개 생성할 지
 
 
-ax[0, 0].plot(apple['Open'], label = 'apple', color ='red')
-ax[0, 1].plot(nvidia['Open'], label = 'nvidia' , color='green')
-ax[1,0].plot(intel['Open'], label = 'intel', color ='blue')
-ax[1, 1].plot(amazon['Open'], label = 'amazon' , color='orange')
+#ax[0, 0].plot(apple['Open'], label = 'apple', color ='red')
+#ax[0, 1].plot(nvidia['Open'], label = 'nvidia' , color='green')
+#ax[1,0].plot(intel['Open'], label = 'intel', color ='blue')
+#ax[1, 1].plot(amazon['Open'], label = 'amazon' , color='orange')
 
-ax[0, 0].set_title('Apple Stocks')
-ax[0, 1].set_title('Nvidia Stocks')
-ax[1, 0].set_title('Intel Stocks')
-ax[1, 1].set_title('Amazon Stocks')
+#ax[0, 0].set_title('Apple Stocks')
+#ax[0, 1].set_title('Nvidia Stocks')
+#ax[1, 0].set_title('Intel Stocks')
+#ax[1, 1].set_title('Amazon Stocks')
 
-ax[0, 0].legend()
-ax[0, 1].legend()
-ax[1, 0].legend()
-ax[1, 1].legend()
+#ax[0, 0].legend()
+#ax[0, 1].legend()
+#ax[1, 0].legend()
+#ax[1, 1].legend()
 
-fig.tight_layout()
+#fig.tight_layout()
 
-ax[0, 0].grid()
-ax[0, 1].grid()
-ax[1, 0].grid()
-ax[1, 1].grid()
+#ax[0, 0].grid()
+#ax[0, 1].grid()
+#ax[1, 0].grid()
+#ax[1, 1].grid()
 #plt.savefig('myStocks.png')
 #plt.savefig('output_test/myStocks2.png')
-plt.show()
+#plt.show()
 
+import plotly.graph_objects as go
+import plotly.express as px
 
+fig = go.Figure(data=[go.Bar(x = ["a", "b", "c"], y = [1, 3, 2])])
+fig.update_layout(title_text = '타이틀 설정')
+fig.show()
+#fig.write_image("/output_test/plot.png")
+plt.savefig("/output_test/plot.png")
