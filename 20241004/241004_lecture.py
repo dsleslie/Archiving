@@ -144,32 +144,60 @@ df.to_excel("output/data2.xlsx")
 
 
 ## join
-data = [
-    ["전기전자", "005930", "삼성전자", 74400],
-    ["화학", "051910", "LG화학", 896000],
-    ["카카오", "000660", "SK하이닉스", 101500]
-]
+#data = [
+ #   ["전기전자", "005930", "삼성전자", 74400],
+ #   ["화학", "051910", "LG화학", 896000],
+ #   ["카카오", "000660", "SK하이닉스", 101500]
+#]
 
-columns = ["업종", "종목코드", "종목명", "현재가"]
-df1 = DataFrame(data=data, columns=columns)
-df1 = df1.set_index('업종')
+#columns = ["업종", "종목코드", "종목명", "현재가"]
+#df1 = DataFrame(data=data, columns=columns)
+#df1 = df1.set_index('업종')
 
 # 두 번째 데이터프레임
-data = [
-    ["은행", 2.92],
-    ["보험", 0.37],
-    ["화학", 0.06],
-    ["전기전자", -2.43]
-]
+#data = [
+ #   ["은행", 2.92],
+ #   ["보험", 0.37],
+ #   ["화학", 0.06],
+ #   ["전기전자", -2.43]
+#]
 
-columns = ["항목", "등락률"]
-df2 = DataFrame(data=data, columns=columns)
-df2 = df2.set_index('항목')
+#columns = ["항목", "등락률"]
+#df2 = DataFrame(data=data, columns=columns)
+#df2 = df2.set_index('항목')
 
 # join 해보자
-print(df1.join(other=df2, how = 'left'))
+#print(df1.join(other=df2, how = 'left'))
 
 # 차이 설명.
 # merge = 기본값: inner join
 # join 기본값 : left join
 # join 하든, merge 쓰든 같은 구문이니, how = '방식' 쓰는게 좋다!
+
+# 문제!
+# 연도별로 그룹바이 연산, 시가총액 평균 구하기
+data = [
+    ["2017", "삼성", 500],
+    ["2017", "LG", 300],    
+    ["2017", "SK하이닉스", 200],
+    ["2018", "삼성", 600],
+    ["2018", "LG", 400],
+    ["2018", "SK하이닉스", 300],    
+]
+
+columns = ["연도", "회사", "시가총액"]
+df = DataFrame(data=data, columns=columns)
+df
+
+#result = df.groupby("연도")[["시가총액"]].mean()
+#print(result)
+#print(type(result))
+# 이걸 데이터프레임으로 만들어야 합칠 수 있음. 그래서 데이터 프레임으로 만들어야 함.
+
+result = df.groupby("연도")[["시가총액"]].mean() #.to_frame() ?? 뭐지 d왜 나는 이미 df였지?
+result.columns = ['시가총액평균']
+print(result)
+print(type(result))
+
+df2 = df.join(result, on = '연도') # 연도로 지정해줘야, df와 result가 다른 형태임에도, 알아서 잘 찾아서 값 넣어줌.
+print(df2)
