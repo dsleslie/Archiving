@@ -45,6 +45,6 @@ fig = go.Figure(data=[go.Candlestick(x=df['Date'],
                 close=df['AAPL.Close'])])
 
 fig.show()
-#plt.savefig('test1.png')
-fig.write_image('output/image_file.png',height=600, width=850)
-
+#plt.savefig('test2.png')
+#fig.write_image('output/image_file.png',height=600, width=850)
+plt.savefig('output/test2.png')
