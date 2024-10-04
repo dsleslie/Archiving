@@ -132,3 +132,10 @@ print(df_outer)
 # join 걸 때 기억해야 할 것 = merge 사용 시기억할 것
 # inner, left 위주로 쓰면 됨.
 # 이유 : 기준테이블을 left 등으로 잡는 다는 뜻이니, 기준 테이블을 굳이 right로 잡을 필요는 없기 때문에...
+
+### if) 두번째 데이터프레임의 columns에 업종이 아니라 항목으로 바꿈
+# 이 경우엔 left로 하든 뭘로 하든 merge하는 기준인 '업종' 이 없기에 key error 뜸
+# 컬럼 이ㅡㄻ 바꾸는 게 좋긴하지만, 이름 바꾸기 가 안되는 경우,
+# left on, right on 옵션을 준다. 아래 처럼
+# df= pd.merge(left = df1, right = df2, how = 'left', left_on='업종', right_on='항목')
+# 이러면 같은 키 값으로 인지한다.
