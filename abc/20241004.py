@@ -30,21 +30,55 @@ from pandas import DataFrame
 #df.to_csv("today_stock.csv" , index = True) index = True 면 인덱스 포함 출력, fAlse 면 빼고 출력
 
 
-dates = [
-    '2021-01-01', '2021-01-02', '2021-01-03', '2021-01-04', '2021-01-05',
-    '2021-01-06', '2021-01-07', '2021-01-08', '2021-01-09', '2021-01-10'
-] 
+#dates = [
+#    '2021-01-01', '2021-01-02', '2021-01-03', '2021-01-04', '2021-01-05',
+#    '2021-01-06', '2021-01-07', '2021-01-08', '2021-01-09', '2021-01-10'
+#] 
 # 지금 자료형이 list임. matpolitlib은 기본적으로 list를 받음. dataframe으로 작업하던 걸 list로 변환해야함. 
-min_temperature = [20.7, 17.9, 18.8, 14.6, 15.8, 15.8, 15.8, 17.4, 21.8, 20.0]
-max_temperature = [34.7, 28.9, 31.8, 25.6, 28.8, 21.8, 22.8, 28.4, 30.8, 32.0]
+#min_temperature = [20.7, 17.9, 18.8, 14.6, 15.8, 15.8, 15.8, 17.4, 21.8, 20.0]
+#max_temperature = [34.7, 28.9, 31.8, 25.6, 28.8, 21.8, 22.8, 28.4, 30.8, 32.0]
 
 
-fig, ax = plt.subplots(nrows = 1, ncols = 1, figsize=(10, 6))
-ax.plot(dates, min_temperature, label = "Min Temp")
-ax.plot(dates, max_temperature, label = "Max Temp")
-ax.legend()
-plt.show()
+#fig, ax = plt.subplots(nrows = 1, ncols = 1, figsize=(10, 6))
+#ax.plot(dates, min_temperature, label = "Min Temp")
+#ax.plot(dates, max_temperature, label = "Max Temp")
+#ax.legend()
+#plt.show()
 # plt.savefig('png_test1.png') 오 된다.
-plt.savefig('output_test/png_test2.png')
+# plt.savefig('output_test/png_test2.png') 오 된다.
+
+apple = yf.download("AAPL", start = "2020-01-01", end="2024-09-30")
+nvidia = yf.download("NVDA", start = "2020-01-01", end="2024-09-30")
+intel = yf.download("INTC", start="2020-01-01", end = "2024-09-30")
+amazon = yf.download("AMZN", start="2020-01-01", end = "2024-09-30")
+
+fig, ax = plt.subplots(nrows=2, ncols=2, figsize=(10,4))
+# nrows, ncols로 그래프 몇개 생성할 지
+
+
+ax[0, 0].plot(apple['Open'], label = 'apple', color ='red')
+ax[0, 1].plot(nvidia['Open'], label = 'nvidia' , color='green')
+ax[1,0].plot(intel['Open'], label = 'intel', color ='blue')
+ax[1, 1].plot(amazon['Open'], label = 'amazon' , color='orange')
+
+ax[0, 0].set_title('Apple Stocks')
+ax[0, 1].set_title('Nvidia Stocks')
+ax[1, 0].set_title('Intel Stocks')
+ax[1, 1].set_title('Amazon Stocks')
+
+ax[0, 0].legend()
+ax[0, 1].legend()
+ax[1, 0].legend()
+ax[1, 1].legend()
+
+fig.tight_layout()
+
+ax[0, 0].grid()
+ax[0, 1].grid()
+ax[1, 0].grid()
+ax[1, 1].grid()
+#plt.savefig('myStocks.png')
+#plt.savefig('output_test/myStocks2.png')
+plt.show()
 
 
