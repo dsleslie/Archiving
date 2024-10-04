@@ -68,7 +68,7 @@ print(my_dict)
 series = pd.Series([25, 35, 45, 60, 75])
 # 답지
 # np.where를 사용하여 조건 적용
-code_result3 = np.where(series>=30 & series<=60, a+10 , )
+code_result3 = np.where(series>=30 & series<=60, a+10)
 
 # 결과 출력
 print(code_result3)
@@ -78,10 +78,9 @@ iris = sns.load_dataset("iris")
 
 # 답지
 # 여기서부터 코드 작성
-df=pd.read_csv("iris")
-# print(df)
-iris=pd.to_csv("/output/code4_jungjihoon.csv")
-iris=pd.to_excel("/output/code4_jungjihoon.xlsx")
+
+iris=pd.to_csv("/output/code4_chaerinnam.csv")
+iris=pd.to_excel("/output/code4_chaerinnam.xlsx")
 
 # 코드 문제 5
 data = [
@@ -95,6 +94,7 @@ df.info()
 
 # 답지
 # 여기서부터 코드 작성
+
 # 사용자 정의 함수
 def rm_comma(x):
     return int(x.replace(",",""))
@@ -104,7 +104,10 @@ y = "1,000"
 print(rm_comma(y))
 df["03/02"] = df["03/02"].apply(rm_comma)
 df["03/03"] = df["03/03"].apply(rm_comma)
-df.info()
+
+print(df.info())
+
+
 
 
 # 코드 문제 6
@@ -117,7 +120,7 @@ plt.show()
 
 # 답지
 # 여기서부터 코드 작성
-plt.savefig('/output/code6_jungjihoon.png')
+plt.savefig('/output/code6_chaerinnam.png')
 
 # 코드 문제 7
 tips = sns.load_dataset("tips")
@@ -126,16 +129,18 @@ tips = sns.load_dataset("tips")
 # 여기서부터 코드 작성
 import matplotlib.pyplot as plt
 import seaborn as sns
-
+tips = sns.load_dataset("tips")
+x = tips['total_bill']
+y = tips['tip']
 fig, ax = plt.subplots(nrows=3, ncols=3, figsize=(10,4))
 ax.scatter(x, y)
 ax[1,1].plot(tips['total_bill'], label = 'tips', color ='blue')
-ax[1, 1].set_title('Scatter Plot of Total Bill vs Tip')
+ax[1,1].set_title('Scatter Plot of Total Bill vs Tip')
 ax.set_xlabel('Total Bill')
 ax.set_ylabel('Tip')
 ax[1, 1].legend()
 fig.tight_layout() 
-plt.savefig('/output/code7_jungjihoon.png')
+plt.savefig('/output/code7_chaerinnam.png')
 
 
 
