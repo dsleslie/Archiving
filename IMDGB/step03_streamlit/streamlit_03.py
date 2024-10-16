@@ -12,10 +12,11 @@ def load_data():
     return train
 
 def main():
+    train = load_data()  # load_data() 함수 호출로 train 데이터 가져오기
     st.title("EDA")
 
     fig, ax = plt.subplots(nrows = 1, ncols = 1, figsize=(10, 6))
-    ax = sns.countplot(data=df_train, x='person_home_ownership')
+    ax = sns.countplot(data=train, x='person_home_ownership')
     ax.set_title("Distribution of Loan Applicants by Home Ownership")
     #plt.show()  
 
