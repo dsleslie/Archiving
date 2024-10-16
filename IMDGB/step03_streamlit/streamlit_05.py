@@ -38,10 +38,10 @@ def main():
         st.pyplot(fig)
 
 
-    st.title('Check Box Control')
+    st.title('Check Box Control2')
     x = np.linspace(0, price, total_sales)
     y = np.sin(x)
-    x = np.cos(x)
+    z = np.cos(x)
     show_plot = st.checkbox("시각화 보여주기")
     print(show_plot)
     if show_plot:
