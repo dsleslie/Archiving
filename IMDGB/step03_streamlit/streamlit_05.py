@@ -15,6 +15,10 @@ def main():
     st.write("total stales :", total_sales)
     print(type(price))
 
+    if st.button("매출액 계산"):
+        revenue = cal_sales_revenue(price, total_sales)
+        st.write(revenue)
+
 
 
 
