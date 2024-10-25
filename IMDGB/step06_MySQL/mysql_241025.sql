@@ -285,3 +285,63 @@ mysql에서 python 쓰는 이유
 final project 할때는 03 업무별 데이터 분석 절차
 이대로 나와야 함. 그래야 좋아함.
 */
+
+-- 14시부터
+USE titanic;
+/* MySQL 정규표현식 
+
+정규표현식 기본 문법
+-패턴 그대로 매칭: 찾기 기능 같은 것
+-메타문자 활용 
+-그룹, look around 기능 <- 어렵
+= > 여튼 문자열 찾을 때 사용하는 기법이다 !
+
+문법
+SELECT * FROM 테이블명 WHERE 컬럼명 REGEXP"pattern";
+-> 강의 슬라이드, documentation 참고 !
+-> 어려운 거임
+-> pandas, sql에서 문자열 패턴으로 문자열 검색하고 싶을 때 '정규 표현식' 사용
+
+-- 내용:
+-- 문자와 기호:
+-- .: 임의의 단일 문자
+-- ^: 문자열의 시작
+-- $: 문자열의 끝
+-- *: 0개 이상의 반복
+-- +: 1개 이상의 반복
+-- ?: 0개 또는 1개의 반복
+-- |: 논리적 OR
+-- []: 범위 또는 문자 클래스
+-- (): 그룹화
+
+*/
+
+-- 정규표현식 예제
+USE etc;
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    phone VARCHAR(20)
+);
+
+-- 샘플 데이터 삽입
+INSERT INTO users (username, email, phone) VALUES
+('john.doe', 'john.doe@example.com', '123-456-7890'),
+('jane_smith', 'jane.smith@example.net', '555-1234'),
+('alice99', 'alice123@wonderland.com', '987-654-3210'),
+('bob-builder', 'bob.builder@construction.org', '321-654-0987'),
+('charlie.brown', 'charlie.brown@example.com', '555-9876');
+
+
+
+
+
+
+
+
+
+
+
+
