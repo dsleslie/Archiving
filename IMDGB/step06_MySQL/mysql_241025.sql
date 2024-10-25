@@ -431,12 +431,16 @@ ORDER BY 1
 -- 평점 : 3점 이하 
 -- Department Name : Trend
 SELECT 
-	FLOOR(Age/10) * 10 AS AGEBAND
-	, COUNT(*) AS 명수
-FROM dataset2
-WHERE `Department Name` = 'Trend'
-	AND (FLOOR(Age/10) * 10) = 50
+	Title
+    , `Review Text`
+FROM 
+	dataset2
+WHERE 
+	`Department Name` = 'Trend'
+	AND AGE BETWEEN 50 AND 59
     AND Rating <= 3
-GROUP BY 1
-ORDER BY 1
 ;
+-- review text 보니 size complain이 있다.
+-- size  complain에 대해 조사 디테일하게 해보자.
+-- 결론:  SQL에서 더 디테일하게 조사 불가
+-- NLP or 텍스트 마이닝 ==> 딥러닝, 생성형 AI 활용해서 별도로 조사
