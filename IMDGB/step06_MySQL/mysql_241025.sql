@@ -172,3 +172,89 @@ ORDER BY 1
 -- 분석 : 질적인 측면, 양적인 측면 동시에 고려
 -- 주어진 데이터에서는 더 이상의 분석은 불가
 -- 다른 해상사고 찾아서 결과 확인 후 교차 검증을 진행 해야함
+
+-- 객실 등극별로 승객 수, 생존자 수, 생존율 계산
+-- pclass 컬럼 이용
+SELECT 
+	pclass as 객실등급
+	, COUNT(PassengerID) AS 승객수
+    , SUM(SURVIVED) AS 생존자수
+    , ROUND(SUM(SURVIVED) / COUNT(PassengerID), 3) AS 생존율 -- 반올림
+FROM titanic
+GROUP BY 1
+ORDER BY 1
+;
+
+-- 더 파야함
+SELECT 
+	pclass as 객실등급
+    , Sex AS 성별
+    , FLOOR(AGE/10) * 10 AS 연령대
+	, COUNT(PassengerID) AS 승객수
+    , SUM(SURVIVED) AS 생존자수
+    , ROUND(SUM(SURVIVED) / COUNT(PassengerID), 3) AS 생존율 -- 반올림
+FROM titanic
+GROUP BY 1, 2, 3
+ORDER BY 2, 1
+; -- 이렇게 추가해가면서 해석 할 수 있음.
+-- 결론: 유아일수록 생존율이 높음, 모든 객실 등급에서 남성보다는 여성의 생존율 높음
+
+-- 탑승객 분석
+-- 출발지, 도착지별 승객 수
+SELECT * FROM titanic;
+-- Boarded: 출발지
+-- Destination: 목적지
+-- 출발지-목적지별 승객 수
+SELECT 
+	boarded
+    , destination
+    , COUNT(PassengerId) 승객수
+FROM titanic
+GROUP BY 1, 2
+ORDER BY 3 DESC
+;
+
+-- 상위 5개 경로를 추출할 떄, 탑승객 수로 순위를 매기기
+/* SELECT 
+	boarded
+    , destination
+    , COUNT(PassengerId) 승객수
+	, dense_rank() OVER(ORDER BY COUNT(PassengerId) DESC) RNK
+FROM titanic
+GROUP BY 1, 2
+HAVING RNK BETWEEN 1 AND 5;
+ORDER BY 3 DESC
+; */
+
+SELECT * 
+FROM (
+    SELECT 
+        *
+        , ROW_NUMBER() OVER(ORDER BY N_PASSENGERS DESC) RNK
+    FROM (
+            SELECT 
+                BOARDED
+                , DESTINATION
+                , COUNT(PASSENGERID) N_PASSENGERS
+            FROM titanic
+            GROUP BY BOARDED, DESTINATION
+    ) BASE
+) BASE
+WHERE RNK BETWEEN 1 AND 5
+;
+
+-- Hometown별 탑승객 수 생존율
+SELECT * FROM titanic;
+/*SELECT
+	pclass as 객실등급
+    , Sex AS 성별
+    , FLOOR(AGE/10) * 10 AS 연령대
+	, COUNT(PassengerID) AS 승객수
+    , SUM(SURVIVED) AS 생존자수
+    , ROUND(SUM(SURVIVED) / COUNT(PassengerID), 3) AS 생존율 -- 반올림
+FROM titanic
+GROUP BY 1, 2, 3
+ORDER BY 2, 1 */
+
+SELECT SUM(1); 				-- 결과 1 -> SUM(1): 테이블의 행 개수
+SELECT SUM(1) FROM titanic  -- 결과 714 -> SUM(1): 테이블의 행 개수
