@@ -113,7 +113,7 @@ SELECT
 	A.연령대
     , A.생존율 AS 여성생존율
     , B.생존율 AS 남성생존율
-    , A.여성생존율-B.남성생존율 AS 생존율차이
+    , A.생존율-B.생존율 AS 생존율차이
 FROM (
 	SELECT
 		FLOOR(AGE/10) * 10 AS 연령대
@@ -121,7 +121,6 @@ FROM (
 		, ROUND(SUM(SURVIVED) / COUNT(PassengerID), 3) AS 생존율
 	FROM titanic
 	GROUP BY 1, 2
-	ORDER BY 1, 2
     HAVING SEX = 'female'
 ) A
 LEFT JOIN (
@@ -131,7 +130,6 @@ LEFT JOIN (
 		, ROUND(SUM(SURVIVED) / COUNT(PassengerID), 3) AS 생존율
 	FROM titanic
 	GROUP BY 1, 2
-	ORDER BY 1, 2
     HAVING SEX = 'male'
 
 ) B
