@@ -286,7 +286,7 @@ final project 할때는 03 업무별 데이터 분석 절차
 이대로 나와야 함. 그래야 좋아함.
 */
 
--- 14시부터
+-- 14시부터 여기서부터 한 두 문제 나옴
 USE titanic;
 /* MySQL 정규표현식 
 
@@ -366,9 +366,77 @@ SELECT * FROM users WHERE username REGEXP '^.[a-e]'; -- 두번째 문자를 기�
 SELECT * FROM users WHERE username REGEXP '^..[a-e]'; -- 세번째 문자를 기준점으로 가져오기 ( . 이 이미 첫,두글자라서 )
 
 
+/* 리뷰 데이터
+강의 슬라이드 참고
+그냥 참고, 컬럼명 바꾸는 메서드 .. 당연 있음. 
+*/
+USE dataset2;
+SELECT * FROM dataset2;
+-- 컬럼명에 띄어쓰기 있어서 가져올  때 주의해야함 '이게 아니라 ` 써야함
+SELECT `Review Text` FROM dataset2;
+
+-- Department별 평균 평점 구하기
+SELECT 
+	`Department Name`
+	, AVG(Rating) AS average
+FROM dataset2
+GROUP BY 1
+ORDER BY 2 DESC
+; -- Trend에 대한 평점 매우 낮음 -> 왜 이런 문제가 생겼을까 알아봐야 함.
+-- DIVISION NAME별 평균 평점 구하기
+SELECT 
+	`DIVISION NAME`
+	, AVG(Rating) AS average
+FROM dataset2
+GROUP BY 1
+ORDER BY 2 DESC
+;
+
+-- Trend의 평점 3이하 조회
+SELECT
+	*
+FROM
+	dataset2
+WHERE `Department Name` = 'Trend'
+	AND RATING <=3
+;
+
+-- Trend의 평점 3점 이하 연령 분포 조회
+-- AGE 활용 (titanic 통해 확인)
+SELECT
+	FLOOR(Age/10) * 10 AS AGEBAND
+	, COUNT(*) AS 명수
+FROM
+	dataset2
+WHERE `Department Name` = 'Trend'
+	AND RATING <=3
+GROUP BY 1
+ORDER BY 2 DESC
+;
 
 
+-- Department별 연령별 리뷰수 
+SELECT 
+	FLOOR(Age/10) * 10 AS AGEBAND
+	, COUNT(*) AS 명수
+FROM dataset2
+WHERE `Department Name` = 'Trend'
+GROUP BY 1
+ORDER BY 1
+;
+-- 위 두개 비교해보면, 실제로는 50대가 불만이 많음을 알 수 있음
 
-
-
-
+-- 조건 
+-- 연령대 : 50대
+-- 평점 : 3점 이하 
+-- Department Name : Trend
+SELECT 
+	FLOOR(Age/10) * 10 AS AGEBAND
+	, COUNT(*) AS 명수
+FROM dataset2
+WHERE `Department Name` = 'Trend'
+	AND (FLOOR(Age/10) * 10) = 50
+    AND Rating <= 3
+GROUP BY 1
+ORDER BY 1
+;
