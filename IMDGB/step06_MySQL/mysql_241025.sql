@@ -444,3 +444,123 @@ WHERE
 -- size  complain에 대해 조사 디테일하게 해보자.
 -- 결론:  SQL에서 더 디테일하게 조사 불가
 -- NLP or 텍스트 마이닝 ==> 딥러닝, 생성형 AI 활용해서 별도로 조사
+-- 간단한 집계 정도는 sql에서 할 수 있다.
+-- 집계 TRUE / FALSE
+-- 만약 ,   
+SELECT 
+	`REVIEW TEXT`
+    , CASE WHEN `REVIEW TEXT` LIKE '%SIZE%' THEN 1 ELSE 0
+     END SIZE_YN -- 리뷰 내용에서 size가 있으면 1, 없으면 0
+FROM 
+	dataset2
+;
+
+-- 전체 리뷰 개수 중에서 SIZE에 관한 리뷰는 몇%인지 계산
+-- 코드로 구현할 필요는 없고, 각각 개수 구하고 어림잡아서 판단
+SELECT 
+	SUM(CASE WHEN `REVIEW TEXT` LIKE '%SIZE%' THEN 1 ELSE 0 END) AS 사이즈리뷰개수
+	, SUM(1) AS 전체리뷰개수
+FROM 
+	dataset2
+;
+
+
+-- LARGE
+-- SMALL
+-- TIGHT
+-- LOOSE
+SELECT 
+	SUM(CASE WHEN `REVIEW TEXT` LIKE '%SIZE%' THEN 1 ELSE 0 END) AS 사이즈리뷰개수
+    , SUM(CASE WHEN `REVIEW TEXT` LIKE '%SMALL%' THEN 1 ELSE 0 END) AS small_사이즈리뷰개수
+	, SUM(CASE WHEN `REVIEW TEXT` LIKE '%LARGE%' THEN 1 ELSE 0 END) AS large_사이즈리뷰개수
+    , SUM(CASE WHEN `REVIEW TEXT` LIKE '%LOOSE%' THEN 1 ELSE 0 END) AS loose_사이즈리뷰개수
+    , SUM(CASE WHEN `REVIEW TEXT` LIKE '%TIGHT%' THEN 1 ELSE 0 END) AS tight_사이즈리뷰개수
+    , SUM(1) AS 전체리뷰개수
+FROM 
+	dataset2
+;
+
+-- 할 것
+-- department name 별로 집계
+-- 연령대별로 집계
+-- department name, 연령대별로 집계
+-- 각각 비율도 구할 수 있다. : 예시 : SUM(CASE WHEN ~~~ / SUM(1) ) 
+
+-- ?
+-- 아래는 강사님 코드
+
+-- department name별로 집계
+SELECT
+	`department name`
+	, SUM(CASE WHEN `REVIEW TEXT` LIKE '%SIZE%' THEN 1 ELSE 0 END) AS SIZE_전체리뷰갯수
+    , SUM(CASE WHEN `REVIEW TEXT` LIKE '%LARGE%' THEN 1 ELSE 0 END) AS LARGE_전체리뷰갯수
+    , SUM(CASE WHEN `REVIEW TEXT` LIKE '%SMALL%' THEN 1 ELSE 0 END) AS SMALL_전체리뷰갯수
+    , SUM(CASE WHEN `REVIEW TEXT` LIKE '%TIGHT%' THEN 1 ELSE 0 END) AS TIGHT_전체리뷰갯수
+    , SUM(CASE WHEN `REVIEW TEXT` LIKE '%LOOSE%' THEN 1 ELSE 0 END) AS LOOSE_전체리뷰갯수
+	, SUM(1) AS 전체리뷰갯수
+FROM 
+	dataset2
+GROUP BY 1
+;
+
+-- 연령대별로 집계
+SELECT
+	FLOOR(AGE/10) * 10 연령대 
+	, SUM(CASE WHEN `REVIEW TEXT` LIKE '%SIZE%' THEN 1 ELSE 0 END) AS SIZE_전체리뷰갯수
+    , SUM(CASE WHEN `REVIEW TEXT` LIKE '%LARGE%' THEN 1 ELSE 0 END) AS LARGE_전체리뷰갯수
+    , SUM(CASE WHEN `REVIEW TEXT` LIKE '%SMALL%' THEN 1 ELSE 0 END) AS SMALL_전체리뷰갯수
+    , SUM(CASE WHEN `REVIEW TEXT` LIKE '%TIGHT%' THEN 1 ELSE 0 END) AS TIGHT_전체리뷰갯수
+    , SUM(CASE WHEN `REVIEW TEXT` LIKE '%LOOSE%' THEN 1 ELSE 0 END) AS LOOSE_전체리뷰갯수
+	, SUM(1) AS 전체리뷰갯수
+FROM 
+	dataset2
+GROUP BY 1
+ORDER BY 1
+;
+-- department name, 연령대별로 집계
+SELECT
+	`department name`
+	, FLOOR(AGE/10) * 10 연령대 
+	, SUM(CASE WHEN `REVIEW TEXT` LIKE '%SIZE%' THEN 1 ELSE 0 END) AS SIZE_전체리뷰갯수
+    , SUM(CASE WHEN `REVIEW TEXT` LIKE '%LARGE%' THEN 1 ELSE 0 END) AS LARGE_전체리뷰갯수
+    , SUM(CASE WHEN `REVIEW TEXT` LIKE '%SMALL%' THEN 1 ELSE 0 END) AS SMALL_전체리뷰갯수
+    , SUM(CASE WHEN `REVIEW TEXT` LIKE '%TIGHT%' THEN 1 ELSE 0 END) AS TIGHT_전체리뷰갯수
+    , SUM(CASE WHEN `REVIEW TEXT` LIKE '%LOOSE%' THEN 1 ELSE 0 END) AS LOOSE_전체리뷰갯수
+	, SUM(1) AS 전체리뷰갯수
+FROM 
+	dataset2
+GROUP BY 1, 2
+ORDER BY 2, 1
+;
+-- 각각의 비율 구할 수 있음 
+SELECT
+	`department name`
+	, FLOOR(AGE/10) * 10 연령대 
+	, SUM(CASE WHEN `REVIEW TEXT` LIKE '%SIZE%' THEN 1 ELSE 0 END) / SUM(1) AS SIZE_전체리뷰갯수
+    , SUM(CASE WHEN `REVIEW TEXT` LIKE '%LARGE%' THEN 1 ELSE 0 END) / SUM(1) AS LARGE_전체리뷰갯수
+    , SUM(CASE WHEN `REVIEW TEXT` LIKE '%SMALL%' THEN 1 ELSE 0 END) / SUM(1) AS SMALL_전체리뷰갯수
+    , SUM(CASE WHEN `REVIEW TEXT` LIKE '%TIGHT%' THEN 1 ELSE 0 END) / SUM(1) AS TIGHT_전체리뷰갯수
+    , SUM(CASE WHEN `REVIEW TEXT` LIKE '%LOOSE%' THEN 1 ELSE 0 END) / SUM(1) AS LOOSE_전체리뷰갯수
+	, SUM(1) AS 전체리뷰갯수
+FROM 
+	dataset2
+GROUP BY 1, 2
+ORDER BY 2, 1
+;
+-- SUM (case when ~~~ ) / SUM(1) 
+SELECT * FROM dataset2;
+SELECT
+	`department name`
+	, FLOOR(AGE/10) * 10 연령대 
+    , Rating
+	, SUM(CASE WHEN `REVIEW TEXT` LIKE '%SIZE%' THEN 1 ELSE 0 END) / SUM(1) AS SIZE_전체리뷰갯수
+    , SUM(CASE WHEN `REVIEW TEXT` LIKE '%LARGE%' THEN 1 ELSE 0 END) / SUM(1) AS LARGE_전체리뷰갯수
+    , SUM(CASE WHEN `REVIEW TEXT` LIKE '%SMALL%' THEN 1 ELSE 0 END) / SUM(1) AS SMALL_전체리뷰갯수
+    , SUM(CASE WHEN `REVIEW TEXT` LIKE '%TIGHT%' THEN 1 ELSE 0 END) / SUM(1) AS TIGHT_전체리뷰갯수
+    , SUM(CASE WHEN `REVIEW TEXT` LIKE '%LOOSE%' THEN 1 ELSE 0 END) / SUM(1) AS LOOSE_전체리뷰갯수
+	, SUM(1) AS 전체리뷰갯수
+FROM 
+	dataset2
+GROUP BY 1, 2, 3
+ORDER BY 2, 1, 3 DESC
+;
