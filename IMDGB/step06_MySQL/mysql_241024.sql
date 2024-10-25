@@ -196,7 +196,7 @@ ORDER BY avgQuantity DESC
 */
 -- 매출 Top5 국가 및 매출 -- 문제 낸다. --1023씩 한건 똑같이 낸다.
 -- 국가별 매출
-CREATE TABLE classicmodels.stat AS
+-- CREATE TABLE classicmodels.stat AS
 SELECT 
 	C.country
     , SUM(B.priceEach * B.quantityOrdered) AS sales

@@ -162,6 +162,6 @@ cython_debug/
 #.idea/
 
 # 프로젝트 datset 보이면 안됨
-imbank_project1/
+project1/
 
 

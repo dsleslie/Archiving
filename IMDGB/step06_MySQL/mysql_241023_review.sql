@@ -79,8 +79,16 @@ ORDER BY
 -- 주문번호 : 10222
 SELECT * FROM orderdetails;
 SELECT 
-	ordernumber
-    , 
-FROM 
+	ordernumber,
+    SUM(quantityOrdered) AS 주문갯수,
+    SUM(quantityOrdered * priceEach) AS 매출액
+FROM
 	orderdetails
+GROUP BY
+	ordernumber
+HAVING 
+	주문갯수 > 700
 ;
+
+-- JOIN 
+-- 테이블 생성
