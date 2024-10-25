@@ -334,9 +334,36 @@ INSERT INTO users (username, email, phone) VALUES
 ('bob-builder', 'bob.builder@construction.org', '321-654-0987'),
 ('charlie.brown', 'charlie.brown@example.com', '555-9876');
 
+SELECT * FROM users;
+-- 1. 임의의 단일 문자 : .
+-- 문제 : username 컬럼에서 임의의 한 문자(t)가 있는 이름 찾아서 조회
+SELECT * FROM users WHERE username REGEXP '.t';
 
 
+-- 2. 문자열의 시작 : ^
+-- 'a'로 시작하는 사용자 이름을 찾는 쿼리
+SELECT * FROM users WHERE username REGEXP '^a'; 
+SELECT * FROM users WHERE username REGEXP '^ja';
+SELECT * FROM users WHERE username REGEXP '^j';
 
+-- 3. 문자열의 끝 : $
+-- 'm'으로 끝나는 이메일을 찾는 쿼리
+SELECT * FROM users WHERE email REGEXP 'm$';
+
+-- 4. * : 0개 이상의 반복
+SELECT * FROM users WHERE username REGEXP 'do.*'; -- 중간글자 검색.. 응?
+
+-- 5. + : 1개 이상의 반복
+-- 숫자를 하나 이상 포함하는 사용자 이름 찾기
+SELECT * FROM users WHERE username REGEXP '[0-9]'; -- []: 범위지정 , 숫자는 0-9가 있음. 그래서 숫자만 들어있으면 조회하겠다 는 뜻
+-- ㅇ
+SELECT * FROM users WHERE username REGEXP '[0-9]+'; -- + : 반복해서 가져온다 .. 응?
+SELECT * FROM users WHERE username REGEXP '[:digit:]+'; -- :digit: 숫자를 의미하는 또 다른 명령어
+
+-- 6. 알파벳 소문자 'a'에서 'e'사이의 문자로 시작하는 사용자 이름
+SELECT * FROM users WHERE username REGEXP '^[a-e]'; -- a,b,c,d,e 중에 하나로 시작하는 username 가져온다
+SELECT * FROM users WHERE username REGEXP '^.[a-e]'; -- 두번째 문자를 기준점으로 가져오기 ( . 이 이미 첫글자라서 )
+SELECT * FROM users WHERE username REGEXP '^..[a-e]'; -- 세번째 문자를 기준점으로 가져오기 ( . 이 이미 첫,두글자라서 )
 
 
 
