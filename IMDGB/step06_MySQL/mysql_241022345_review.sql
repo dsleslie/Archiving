@@ -27,5 +27,19 @@ FROM
 -- 테이블 정보 제공
 DESC employees;
 
+-- python의 print처럼 SELECT 사용
+-- table 없이 사용하면 된다.
+SELECT 1+1;
 
 
+-- 간단 sql 함수 몇가지
+SELECT RTRIM('blahblah         ');  -- 오른쪽 공백을 없애준다.
+SELECT now(); 						-- 현재 날짜, 시, 분, 초 
+SELECT curdate();					-- 현재 날짜
+SELECT concat('Merry', ' ', 'Christmas'); -- 글자를 이어 붙이는 함수
+
+-- 읽는 순서
+-- order by
+-- From ==> Select ==> orderby 를 읽는다.
+-- where
+-- From ==> Where ==> Select ==> order by 를 읽는다.
