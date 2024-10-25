@@ -16,3 +16,16 @@ ORDER BY 값 정렬
 */
 
 -- 테이블 내 특정 컬럼만 출력
+SELECT
+	lastname
+    , firstName
+    , jobTitle
+FROM
+	employees
+;
+
+-- 테이블 정보 제공
+DESC employees;
+
+
+

@@ -271,3 +271,17 @@ GROUP BY 1
 HAVING
 	SUM(1) >= 10 AND 생존율 >= 0.5 
 ;
+
+/* python 언어로 mysql에서 할 수 있는 거
+CRUD
+CREATE
+READ
+UPDATE
+DELETE
+
+mysql에서 python 쓰는 이유
+회귀분석, t-test, 머신러닝 등 하고 싶어서
+
+final project 할때는 03 업무별 데이터 분석 절차
+이대로 나와야 함. 그래야 좋아함.
+*/
