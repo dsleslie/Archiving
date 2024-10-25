@@ -257,4 +257,17 @@ GROUP BY 1, 2, 3
 ORDER BY 2, 1 */
 
 SELECT SUM(1); 				-- 결과 1 -> SUM(1): 테이블의 행 개수
-SELECT SUM(1) FROM titanic  -- 결과 714 -> SUM(1): 테이블의 행 개수
+SELECT SUM(1) FROM titanic;  -- 결과 714 -> SUM(1): 테이블의 행 개수
+
+USE titanic;
+-- 승객수가 10명 이상이면서 생존율이 0.5 이상인 HOMETOWN 출력
+SELECT
+	HOMETOWN
+    , SUM(1) 승객수
+    , SUM(SURVIVED)/SUM(1) 생존율 
+FROM
+	titanic
+GROUP BY 1
+HAVING
+	SUM(1) >= 10 AND 생존율 >= 0.5 
+;
