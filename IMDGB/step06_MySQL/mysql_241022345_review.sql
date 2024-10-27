@@ -1,3 +1,4 @@
+-- 1022
 USE classicmodels; -- 데이터베이스 이동
 
 SELECT 
@@ -43,3 +44,53 @@ SELECT concat('Merry', ' ', 'Christmas'); -- 글자를 이어 붙이는 함수
 -- From ==> Select ==> orderby 를 읽는다.
 -- where
 -- From ==> Where ==> Select ==> order by 를 읽는다.
+SELECT * FROM employees;
+SELECT
+	lastName
+    , firstName
+    , jobTitle AS 직급
+FROM
+	employees
+WHERE
+	jobTitle = 'Sales Rep'
+;
+    
+SELECT
+	lastName
+    , firstName
+    , jobTitle AS 직급
+FROM
+	employees
+WHERE
+	jobTitle REGEXP '^Sales';
+; -- 정규표현식으로 Sales로 시작하는 것 전부 조회했다
+
+-- and, or
+SELECT
+	lastName
+    , firstName
+    , jobTitle AS 직급
+    , officeCode
+FROM
+	employees
+WHERE
+	jobTitle = 'Sales Rep' AND officeCode=1
+; -- 시험 낸대요.
+
+SELECT
+	lastName
+    , firstName
+    , jobTitle AS 직급
+    , officeCode
+FROM
+	employees
+WHERE
+	jobTitle = 'Sales Rep' OR officeCode=1
+ORDER BY officeCode ASC
+; -- 시험낸대
+    
+-- 1023
+
+    
+    
+    
