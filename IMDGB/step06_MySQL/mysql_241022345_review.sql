@@ -62,7 +62,7 @@ SELECT
 FROM
 	employees
 WHERE
-	jobTitle REGEXP '^Sales';
+	jobTitle REGEXP '^Sales'
 ; -- 정규표현식으로 Sales로 시작하는 것 전부 조회했다
 
 -- and, or
@@ -90,7 +90,63 @@ ORDER BY officeCode ASC
 ; -- 시험낸대
     
 -- 1023
+USE classicmodels;
+SELECT
+	status
+FROM
+	orders
+GROUP BY
+	status
+;
 
+-- DISTINCT: 중복을 제거
+SELECT
+	DISTINCT status
+FROM
+	orders
+;
+
+-- GROUP BY: COUNT()
+SELECT
+	status
+    , COUNT(*) -- COUNT(*)는 각 그룹(status 값)에 속하는 모든 행(*)의 개수를 계산
+FROM 
+	orders
+GROUP BY
+	status
+;
+
+SELECT
+	status
+    , COUNT(*) -- COUNT(*)는 각 그룹(status 값)에 속하는 모든 행(*)의 개수를 계산
+FROM 
+	orders
+
+; -- group by 없으면 에러난다.
+
+
+SELECT
+    COUNT(*) -- COUNT(*)는 각 그룹(status 값)에 속하는 모든 행(*)의 개수를 계산
+FROM 
+	orders
+
+; -- group by를 해야 나온다.
+
+SELECT
+	*
+FROM
+	orders
+;
+
+
+-- 컬럼 만들기
+SELECT * FROM orderdetails;
+SELECT
+	orderNumber
+    , quantityOrdered * priceEach AS 매출액
+FROM
+	orderdetails
+;
     
     
     
