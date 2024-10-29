@@ -126,11 +126,18 @@ FROM
 
 
 SELECT
-    COUNT(*) -- COUNT(*)는 각 그룹(status 값)에 속하는 모든 행(*)의 개수를 계산
+    COUNT(*) 
 FROM 
 	orders
 
-; -- group by를 해야 나온다.
+;  
+
+SELECT
+    SUM(1) 
+FROM 
+	orders
+
+; --
 
 SELECT
 	*
