@@ -10,3 +10,9 @@ plotly
 streamlit
 statsmodels
 pingouin
+joblib
+scipy
+pillow
+requests
+tensorflow
+pycaret
